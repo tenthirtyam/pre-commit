@@ -1,0 +1,16 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    target-branch: main
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - chore
+      - github-actions
+    commit-message:
+      prefix: 'chore(gh):'
+    ignore:
+      - dependency-name: '*'
+        update-types: ["version-update:semver-patch"]

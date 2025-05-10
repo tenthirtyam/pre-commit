@@ -1,0 +1,134 @@
+# Copyright (c) 2025 Ryan Johnson. All Rights Reserved.
+# SPDX-License-Identifier: BSD-2-Clause
+
+# Reference: https://pre-commit.com
+
+- id: go-build
+  name: go build
+  description: Run 'go build' to check for build errors.
+  entry: hooks/go-build.sh
+  language: script
+  files: \.go$
+  exclude: vendor\/.*$
+
+- id: go-mod-tidy
+  name: go mod tidy
+  description: Run 'go mod tidy' to ensure Go modules are tidy.
+  entry: hooks/go-mod-tidy.sh
+  language: script
+  files: \.go$
+  exclude: vendor\/.*$
+
+- id: gofmt
+  name: gofmt
+  description: Run 'gofmt' to format Go code.
+  entry: hooks/gofmt.sh
+  language: script
+  files: \.go$
+  exclude: vendor\/.*$
+
+- id: goimports
+  name: goimports
+  description: Run 'goimports' to format Go code and add/remove imports.
+  entry: hooks/goimports.sh
+  language: script
+  files: \.go$
+  exclude: vendor\/.*$
+
+- id: golangci-lint
+  name: golangci-lint
+  description: Run 'golangci-lint' to lint Go code.
+  entry: hooks/golangci-lint.sh
+  language: script
+  files: \.go$
+  require_serial: true
+
+- id: markdown-link-check
+  name: markdown-link-check
+  description: Run 'markdown-link-check' to check for broken links in markdown files.
+  entry: hooks/markdown-link-check.sh
+  language: script
+  files: \.md$
+  exclude: vendor\/.*$
+
+- id: packer-fmt
+  name: packer fmt
+  description: Runs 'packer fmt' to format Packer configuration files.
+  entry: hooks/packer-fmt.sh
+  language: script
+  files: (\.pkr\.(hcl|json)|\.pkrvars\.hcl)$
+  require_serial: true
+
+- id: packer-validate
+  name: packer validate
+  description: Runs 'packer validate' to validate Packer configuration files.
+  entry: hooks/packer-validate.sh
+  language: script
+  files: (\.pkr\.(hcl|json)|\.pkrvars\.hcl)$
+  require_serial: true
+
+- id: shellcheck
+  name: shellcheck
+  description: Run 'shellcheck' to lint shell scripts.
+  entry: hooks/shellcheck.sh
+  language: script
+
+- id: terraform-fmt
+  name: terraform fmt
+  description: Runs 'terraform fmt' to format Terraform configuration files.
+  entry: hooks/terraform-fmt.sh
+  language: script
+  files: \.tf$
+  exclude: \.terraform\/.*$
+  require_serial: true
+
+- id: terraform-validate
+  name: terraform validate
+  description: Runs 'terraform validate' to validate Terraform configuration files.
+  entry: hooks/terraform-validate.sh
+  language: script
+  files: \.tf$
+  exclude: \.terraform\/.*$
+  require_serial: true
+
+- id: terragrunt-hclfmt
+  name: terragrunt hclfmt
+  description: Runs 'terragrunt hclfmt' to format Terragrunt configuration files.
+  entry: hooks/terragrunt-hclfmt.sh
+  language: script
+  files: \.hcl$
+  exclude: >
+    (?x)^(
+      \.terraform\/.*|
+      \.terragrunt-cache\/.*|
+    )$
+
+- id: tofu-fmt
+  name: tofu fmt
+  description: Runs 'tofu fmt' to format OpenTofu configuration files.
+  entry: hooks/tofu-fmt.sh
+  language: script
+  files: \.(tf|tofu)$
+  exclude: \.terraform\/.*$
+  require_serial: true
+
+- id: tofu-validate
+  name: tofu validate
+  description: Runs 'tofu validate' to validate OpenTofu configuration files.
+  entry: hooks/tofu-validate.sh
+  language: script
+  files: \.(tf|tofu)$
+  exclude: \.terraform\/.*$
+  require_serial: true
+
+- id: yapf
+  name: yapf
+  description: Run 'yapf' to format Python code.
+  entry: hooks/yapf.sh
+  language: script
+  files: \.py$
+  exclude: >
+    (?x)^(
+      \.tox\/.*$|
+      __pycache__\/.*$
+    )$
